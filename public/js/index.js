@@ -41,7 +41,7 @@ weatherForm.addEventListener('submit', (e)=>{
 
             }
             msg1.textContent = location
-            msg2.textContent = "Its "+ data.currentWeather+" outside, " + data.currentTemp + " degrees but feels like "+ data.currentFeelsLike+" degrees."
+            msg2.textContent = "Its "+ data.currentWeather+" outside, " + data.currentTemp + " degrees but feels like "+ data.currentFeelsLike+" degrees"+" and its also "+data.humidity+" percent humid outside"
         })
     })
 })

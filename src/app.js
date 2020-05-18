@@ -61,7 +61,7 @@ app.get('/weather',(req,res)=>{
             })
         }
         //given the lat and long, forecasts the weather and sends a json response
-        forecast(lat,long,(forecastError,{currentTemp, currentWeather, currentFeelsLike})=>{
+        forecast(lat,long,(forecastError,{currentTemp, currentWeather, currentFeelsLike,humidity} = {})=>{
             if(forecastError){
                 return res.send({
                     forecastError
@@ -70,7 +70,8 @@ app.get('/weather',(req,res)=>{
             res.send({
                 currentFeelsLike,
                 currentWeather,
-                currentTemp
+                currentTemp,
+                humidity
             })
         })
     })

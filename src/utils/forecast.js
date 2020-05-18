@@ -18,12 +18,14 @@ const forecast = (lat,long,callback)=>{
     const currentTemp = body.current.temperature
     const currentWeather = body.current.weather_descriptions[0]
     const currentFeelsLike = body.current.feelslike
+    const humidity = body.current.humidity
 
      //log results as output
      callback(undefined,{
          currentTemp,
          currentWeather,
-         currentFeelsLike
+         currentFeelsLike,
+         humidity
      })
     }
  
