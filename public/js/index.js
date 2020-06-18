@@ -2,17 +2,6 @@ console.log("Client side js working")
 
 
 
-
-//fetch command from client to get json data
-fetch('http://localhost:3000/weather?address=').then((response)=>{
-    response.json().then((data)=>{
-        if(data.error){
-            return console.log("error")
-        }
-        console.log(data)
-    })
-})
-
 //select form and searchvalue and add event listener
 const weatherForm = document.querySelector('form')
 const search = document.querySelector('input')
