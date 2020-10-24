@@ -61,7 +61,7 @@ app.get('/weather',(req,res)=>{
             })
         }
         //given the lat and long, forecasts the weather and sends a json response
-        forecast(lat,long,(forecastError,{currentTemp, currentWeather, currentFeelsLike,humidity} = {})=>{
+        forecast(lat,long,(forecastError,{currentTemp, currentWeather, currentFeelsLike,humidity,location} = {})=>{
             if(forecastError){
                 return res.send({
                     forecastError
@@ -77,6 +77,30 @@ app.get('/weather',(req,res)=>{
     })
 })
 
+//locationWEather endpoint
+app.get('/weatherLocation' , (req,res)=>{
+    if(!req.query.lat && !req.query.long){
+        return res.send({
+            error : "No results found!"
+        })
+    }
+    
+    //given the lat and long, forecasts the weather and sends a json response
+    forecast(req.query.lat,req.query.long,(forecastError,{currentTemp, currentWeather, currentFeelsLike,humidity,location} = {})=>{
+        if(forecastError){
+            return res.send({
+                forecastError
+            })
+        }
+        res.send({
+            currentFeelsLike,
+            currentWeather,
+            currentTemp,
+            humidity,
+            location
+        })
+    })
+})
 
 //unknown help endpoint 
 app.get('/help/*',(req,res)=>{
