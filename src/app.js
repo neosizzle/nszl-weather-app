@@ -1,6 +1,5 @@
 const path = require('path')
 const express = require('express')
-const hbs = require('hbs')
 const geocode = require("./utils/geocode")
 const forecast = require("./utils/forecast")
 
@@ -8,43 +7,17 @@ const forecast = require("./utils/forecast")
 const app = express()
 const port = process.env.PORT || 3000
 
-//define paths for express config
-const publicDirPath = path.join(__dirname,"../public")
-const viewsPath = path.join(__dirname, '../templates/views')
-const partialsPath = path.join(__dirname, '../templates/partials')
 
-//SET express settings / set handlebars engine and views location
-app.set('view engine', 'hbs')
-app.set('views', viewsPath)
-hbs.registerPartials(partialsPath)
-
-//USE static asset eg html or client side js
-app.use(express.static(publicDirPath))
+const publicDirPath = path.join(__dirname,"../frontend")//defines path for express config
+app.use(express.json())//parse json data into javascript object 
+app.use(express.static(publicDirPath))//tell the app to use public dirpath for static assets
 
 //root endpoint with dynamic properties
 app.get('',(req,res)=>{
-    res.render('index',{
-        title : "Weather app",
-        name : "nszl"
-    })
+    res.render('index.html')
 })
 
-// /about endpoint with dynamic properties
-app.get('/about',(req,res)=>{
-    res.render('about',{
-        title : "About me",
-        name : "nszl"
-    })
-})
 
-// /help endpoint with dynamic properties
-app.get('/help',(req,res)=>{
-    res.render('help',{
-        title : "HELP",
-        message : "ME",
-        name : "nszl"
-    })
-})
 
 // /weather endpoint    
 app.get('/weather',(req,res)=>{
@@ -102,23 +75,8 @@ app.get('/weatherLocation' , (req,res)=>{
     })
 })
 
-//unknown help endpoint 
-app.get('/help/*',(req,res)=>{
-    res.render('error',{
-        code:'404',
-        message:'Sorry, we couldnt get you help at the moment.',
-        name: 'nszl'
-    })
-})
 
-//unknown endpoint
-app.get('*',(req,res)=>{
-    res.render('error',{
-        code:'404',
-        message:'Sorry, we couldnt find that page.',
-        name: 'nszl'
-    })
-})
+
 
 //server startup
 app.listen(port,()=>{
